@@ -40,11 +40,11 @@ node{
       prId = pullRequestId
     }
 
-    waitUntilArtifactSyncedWithCentral {
-      repo = 'http://central.maven.org/maven2/'
-      groupId = 'io/fabric8'
-      artifact = 'io/fabric8/pipeline-test-project'
-      version = stagedProject[1]
-    }
+    // waitUntilArtifactSyncedWithCentral {
+    //   repo = "http://central.maven.org/maven2/"
+    //   groupId = 'io/fabric8'
+    //   artifact = 'io/fabric8/pipeline-test-project'
+    //   version = stagedProject[1]
+    // }
   }
 }
