@@ -9,7 +9,6 @@ node{
   .withHostPathMount('/var/run/docker.sock','/var/run/docker.sock')
   .withEnvVar('DOCKER_CONFIG','/root/.docker/')
   .withSecret('jenkins-maven-settings','/root/.m2')
-  .withSecret('jenkins-hub-api-token','/root/.apitoken')
   .withSecret('jenkins-ssh-config','/root/.ssh')
   .withSecret('jenkins-git-ssh','/root/.ssh-git')
   .withSecret('jenkins-release-gpg','/root/.gnupg/')
