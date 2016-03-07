@@ -6,6 +6,7 @@ node{
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
   .withHostPathMount('/var/run/docker.sock','/var/run/docker.sock')
+  .withEnvVar('DOCKER_CONFIG','/root/.docker/')
   .withSecret('jenkins-maven-settings','/root/.m2')
   .withSecret('jenkins-ssh-config','/root/.ssh')
   .withSecret('jenkins-git-ssh','/root/.ssh-git')
