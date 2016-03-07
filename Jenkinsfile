@@ -1,8 +1,7 @@
 #!/usr/bin/groovy
 node{
 
-  def projectName = 'pipeline-test-project'
-  def mavenCentralArtifact = 'io/fabric8/kubeflix/pipeline-test-project'
+  def projectName = 'fabric8io/pipeline-test-project'
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
   .withPrivileged(true)
@@ -42,7 +41,9 @@ node{
     }
 
     waitUntilArtifactSyncedWithCentral {
-      artifact = mavenCentralArtifact
+      repo = 'http://central.maven.org/maven2/'
+      groupId = 'io/fabric8'
+      artifact = 'io/fabric8/pipeline-test-project'
       version = stagedProject[1]
     }
   }
