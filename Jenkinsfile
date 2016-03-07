@@ -41,10 +41,11 @@ node{
     }
 
     waitUntilArtifactSyncedWithCentral {
-      repo = "http://central.maven.org/maven2/"
+      repo = 'http://central.maven.org/maven2/'
       groupId = 'io/fabric8'
-      artifact = 'io/fabric8/pipeline-test-project'
+      artifactId = 'pipeline-test-project'
       version = stagedProject[1]
+      ext = 'jar'
     }
   }
 }
