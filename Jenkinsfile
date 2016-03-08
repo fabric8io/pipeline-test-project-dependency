@@ -37,7 +37,7 @@ node{
 
     promoteImages{
       project = projectName
-      images = ['hystrix-dashboard','turbine-server']
+      images = [projectName]
       tag = stagedProject[1]
     }
 
