@@ -9,6 +9,7 @@ node{
   def projectName = pom.artifactId
   def dockerOrganisation = 'fabric8'
   def artifactIdToWatchInCentral = pom.artifactId
+  def artifactIdToWatchInCentralExtension = 'jar'
   def imagesToPromoteToDockerHub = [pom.artifactId]
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
@@ -34,6 +35,7 @@ node{
 
     def stagedProject = stageProject{
       project = githubOrganisation+"/"+projectName
+      useGitTagForNextVersion = true
     }
 
     String pullRequestId = release {
@@ -61,7 +63,7 @@ node{
       groupId = pom.groupId
       artifactId = artifactIdToWatchInCentral
       version = stagedProject[1]
-      ext = 'jar'
+      ext = artifactIdToWatchInCentralExtension
     }
   }
 }
