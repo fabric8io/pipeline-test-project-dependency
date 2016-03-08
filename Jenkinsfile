@@ -13,7 +13,8 @@ node{
   .withSecret('jenkins-maven-settings','/root/.m2')
   .withSecret('jenkins-ssh-config','/root/.ssh')
   .withSecret('jenkins-git-ssh','/root/.ssh-git')
-  .withSecret('jenkins-release-gpg','/root/.gnupg/')
+  .withSecret('jenkins-release-gpg','/root/.gnupg')
+  .withSecret('jenkins-docker-cfg','/root/.docker')
   .inside {
 
     sh 'chmod 600 /root/.ssh-git/ssh-key'
