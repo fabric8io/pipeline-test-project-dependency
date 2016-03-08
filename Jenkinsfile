@@ -6,7 +6,10 @@ node{
   def pom = readMavenPom file: 'pom.xml'
 
   def githubOrganisation = 'fabric8io'
+  def projectName = pom.artifactId
   def dockerOrganisation = 'fabric8'
+  def artifactIdToWatchInCentral = pom.artifactId
+  def imagesToPromoteToDockerHub = [pom.artifactId]
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
   .withPrivileged(true)
@@ -27,37 +30,36 @@ node{
     sh 'chmod 600 /root/.gnupg/trustdb.gpg'
     sh 'chmod 700 /root/.gnupg'
 
-    checkout scm
-
-    sh "git remote set-url origin git@github.com:${githubOrganisation}/${pom.artifactId}.git"
+    sh "git remote set-url origin git@github.com:${githubOrganisation}/${projectName}.git"
 
     def stagedProject = stageProject{
-      project = githubOrganisation+"/"+pom.artifactId
+      project = githubOrganisation+"/"+projectName
     }
 
     String pullRequestId = release {
       projectStagingDetails = stagedProject
-      project = githubOrganisation+"/"+pom.artifactId
+      project = githubOrganisation+"/"+projectName
       helmPush = false
     }
 
     promoteImages{
       toRegistry = 'docker.io'
       org = dockerOrganisation
-      project = pom.artifactId
-      images = [pom.artifactId]
+      project = projectName
+      images = imagesToPromoteToDockerHub
       tag = stagedProject[1]
     }
 
     waitUntilPullRequestMerged{
-      name = githubOrganisation+"/"+pom.artifactId
+      name = githubOrganisation+"/"+projectName
       prId = pullRequestId
     }
 
+    // lets check for turbine-server jar to detect when sonartype -> central sync has happened
     waitUntilArtifactSyncedWithCentral {
       repo = 'http://central.maven.org/maven2/'
       groupId = pom.groupId
-      artifactId = pom.artifactId
+      artifactId = artifactIdToWatchInCentral
       version = stagedProject[1]
       ext = 'jar'
     }
