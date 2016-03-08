@@ -40,6 +40,7 @@ node{
     }
 
     promoteImages{
+      toRegistry = 'docker.io'
       org = dockerOrganisation
       project = pom.artifactId
       images = [pom.artifactId]
