@@ -1,7 +1,8 @@
 #!/usr/bin/groovy
 node{
 
-  def projectName = 'fabric8io/pipeline-test-project'
+  def organisation = 'fabric8io/'
+  def projectName = 'pipeline-test-project'
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
   .withPrivileged(true)
