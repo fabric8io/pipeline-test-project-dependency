@@ -1,8 +1,10 @@
 #!/usr/bin/groovy
 node{
 
-  def organisation = 'fabric8io/'
-  def projectName = 'pipeline-test-project'
+  def pom = readMavenPom file: 'pom.xml'
+
+  def githubOrganisation = 'fabric8io'
+  def dockerOrganisation = 'fabric8'
 
   kubernetes.pod('buildpod').withImage('fabric8/maven-builder:1.0')
   .withPrivileged(true)
@@ -24,33 +26,34 @@ node{
 
     checkout scm
 
-    sh 'git remote set-url origin git@github.com:fabric8io/pipeline-test-project.git'
+    sh "git remote set-url origin git@github.com:${githubOrganisation}/${pom.artifactId}.git"
 
     def stagedProject = stageProject{
-      project = projectName
+      project = githubOrganisation+"/"+pom.artifactId
     }
 
     String pullRequestId = release {
       projectStagingDetails = stagedProject
-      project = projectName
+      project = githubOrganisation+"/"+pom.artifactId
       helmPush = false
     }
 
     promoteImages{
-      project = projectName
-      images = [projectName]
+      org = dockerOrganisation
+      project = pom.artifactId
+      images = [pom.artifactId]
       tag = stagedProject[1]
     }
 
     waitUntilPullRequestMerged{
-      name = projectName
+      name = githubOrganisation+"/"+pom.artifactId
       prId = pullRequestId
     }
 
     waitUntilArtifactSyncedWithCentral {
       repo = 'http://central.maven.org/maven2/'
-      groupId = 'io/fabric8'
-      artifactId = 'pipeline-test-project'
+      groupId = pom.groupId
+      artifactId = pom.artifactId
       version = stagedProject[1]
       ext = 'jar'
     }
