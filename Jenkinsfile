@@ -1,6 +1,8 @@
 #!/usr/bin/groovy
 node{
 
+  checkout scm
+
   def pom = readMavenPom file: 'pom.xml'
 
   def githubOrganisation = 'fabric8io'
