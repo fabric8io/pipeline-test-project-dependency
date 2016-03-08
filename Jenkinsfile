@@ -35,6 +35,12 @@ node{
       helmPush = false
     }
 
+    promoteImages{
+      project = projectName
+      images = ['hystrix-dashboard','turbine-server']
+      tag = stagedProject[1]
+    }
+
     waitUntilPullRequestMerged{
       name = projectName
       prId = pullRequestId
