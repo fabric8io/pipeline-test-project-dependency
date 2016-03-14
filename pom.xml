@@ -11,6 +11,7 @@
   <groupId>io.fabric8</groupId>
   <artifactId>pipeline-test-project</artifactId>
   <version>0.0.8-SNAPSHOT</version>
+  <packaging>pom</packaging>  
   <name>pipeline-test-project</name>
   <description>Demo project for Spring Boot</description>
 
@@ -38,46 +39,6 @@
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <distributionManagement>
-    <repository>
-      <id>oss-sonatype-staging</id>
-      <name>Sonatype Staging Repository</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>oss-sonatype-snapshots</id>
-      <name>OSS Sonatype Nexus Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <repositories>
-    <repository>
-      <id>oss-sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <name>OSS Sonatype Nexus Snapshots</name>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>oss-sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <name>OSS Sonatype Nexus Snapshots</name>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencies>
     <dependency>
