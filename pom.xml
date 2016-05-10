@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.fabric8</groupId>
   <artifactId>pipeline-test-project-dependency</artifactId>
-  <version>0.0.8-SNAPSHOT</version>
+  <version>1.1.2</version>
   <packaging>jar</packaging>
   <name>pipeline-test-project-dependency</name>
   <description>Demo project for Spring Boot</description>
