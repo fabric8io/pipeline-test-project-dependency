@@ -9,4 +9,7 @@ node{
 
   stage 'Promoting'
   pipeline.release(stagedProject)
+
+  stage 'Update downstream dependencies'
+  updateDownstreamDependencies(stagedProject)
 }
