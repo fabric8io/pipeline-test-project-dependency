@@ -19,4 +19,12 @@ def release(project){
   }
 }
 
+def updateDownstreamDependencies(stagedProject){
+  def downstreamProjects = ['fabric8io/pipeline-test-project']
+  pushPomPropertyChangePR{
+    propertyName = 'pipeline.test.project.dependency.version'
+    projects = downstreamProjects
+    version = stagedProject[1]
+  }
+}
 return this;
