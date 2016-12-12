@@ -1,5 +1,7 @@
 #!/usr/bin/groovy
-node{
+@Library('github.com/rawlingsj/fabric8-pipeline-library@master')
+def dummy
+mavenNode {
   checkout scm
 
   def pipeline = load 'release.groovy'
